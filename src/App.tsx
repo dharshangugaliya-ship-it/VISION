@@ -14,6 +14,7 @@ import { UploadAnalyzeView } from './views/UploadAnalyzeView';
 import { ElderGuardView } from './views/ElderGuardView';
 import { BunkWatchView } from './views/BunkWatchView';
 import { CampusPulseView } from './views/CampusPulseView';
+import { AmbulanceClearView } from './views/AmbulanceClearView';
 import { AnalyticsView } from './views/AnalyticsView';
 import { AlertsCenterView } from './views/AlertsCenterView';
 import { SettingsView } from './views/SettingsView';
@@ -119,6 +120,10 @@ export default function App() {
 
           {activeTab === 'campuspulse' && (
             <CampusPulseView onRefreshGlobalStats={refreshGlobalData} />
+          )}
+
+          {activeTab === 'ambulanceclear' && (
+            <AmbulanceClearView onRefreshGlobalStats={refreshGlobalData} />
           )}
 
           {activeTab === 'analytics' && <AnalyticsView />}

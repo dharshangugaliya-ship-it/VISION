@@ -13,6 +13,7 @@ import {
   MapPin,
   ChevronRight,
   X,
+  Siren,
 } from 'lucide-react';
 import { CoreStats, VisionEvent } from '../types/vision';
 import { DonutChart } from '../components/DonutChart';
@@ -152,6 +153,36 @@ export const OverviewDashboard: React.FC<Props> = ({ stats, events, onNavigate }
             <TrendingUp className="w-3 h-3" />
             <span>+11%</span>
           </div>
+        </div>
+      </div>
+
+      {/* AmbulanceClear Active Emergency Route Spotlight Banner */}
+      <div
+        onClick={() => onNavigate('ambulanceclear')}
+        className="cursor-pointer glass-panel p-4 sm:p-5 rounded-2xl border border-rose-500/40 bg-gradient-to-r from-rose-950/40 via-slate-900/80 to-indigo-950/40 hover:border-rose-400/80 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 group shadow-lg shadow-rose-950/20"
+      >
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 shrink-0 group-hover:scale-110 transition-transform">
+            <Siren className="w-5 h-5 animate-pulse" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                AMBULANCECLEAR
+              </span>
+              <span className="text-xs font-bold text-white">Active Emergency Route Intelligence</span>
+              <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/30">
+                Score: 64% (Restricted)
+              </span>
+            </div>
+            <p className="text-xs text-slate-300 mt-1">
+              Unit AMB-911 tracked on Arterial Ring Road (Junction 7). 3 vehicles detected in emergency path (+18s delay).
+            </p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-xs font-mono text-rose-300 font-semibold shrink-0 group-hover:translate-x-1 transition-transform">
+          <span>Open Clearance Command</span>
+          <ChevronRight className="w-4 h-4 text-rose-400" />
         </div>
       </div>
 

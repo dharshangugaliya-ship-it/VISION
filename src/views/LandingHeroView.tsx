@@ -11,6 +11,7 @@ import {
   Activity,
   AlertTriangle,
   Sparkles,
+  Siren,
 } from 'lucide-react';
 
 interface Props {
@@ -100,8 +101,8 @@ export const LandingHeroView: React.FC<Props> = ({ onNavigate, onOpenDemo }) => 
         </div>
       </div>
 
-      {/* 4 Large Module Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {/* 5 Core Intelligence Module Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
         {/* Core Vision */}
         <div
           onClick={() => onNavigate('vision-dashboard')}
@@ -198,6 +199,36 @@ export const LandingHeroView: React.FC<Props> = ({ onNavigate, onOpenDemo }) => 
           </div>
           <div className="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-xs text-purple-400 font-semibold">
             <span>Inspect Campus</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </div>
+        </div>
+
+        {/* AmbulanceClear */}
+        <div
+          onClick={() => onNavigate('ambulanceclear')}
+          className="group relative cursor-pointer rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#190c18] border border-rose-500/30 hover:border-rose-400/70 p-6 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-rose-500/10 flex flex-col justify-between"
+        >
+          <div className="space-y-4">
+            <div className="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+              <Siren className="w-6 h-6 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-lg font-bold text-white group-hover:text-rose-300 transition-colors">
+                  AmbulanceClear
+                </h3>
+                <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                  NEW
+                </span>
+              </div>
+              <p className="text-xs font-mono text-rose-400/80 mt-0.5">Emergency-Route Intelligence</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Detect ambulances, analyze whether traffic is actually yielding, evaluate blockage corridors, and compute clearance scores.
+            </p>
+          </div>
+          <div className="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between text-xs text-rose-400 font-semibold">
+            <span>Analyze Route</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>

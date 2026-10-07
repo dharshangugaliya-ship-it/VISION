@@ -1,0 +1,1079 @@
+{
+  "stats": {
+    "objectsDetected": 1284,
+    "peopleTracked": 426,
+    "eventsDetected": 47,
+    "activeAlerts": 9,
+    "highRiskEvents": 4,
+    "analysesCompleted": 126
+  },
+  "events": [
+    {
+      "id": "evt-101",
+      "module": "elderguard",
+      "title": "Possible fall detected",
+      "description": "Rapid downward trajectory followed by sustained floor-level inactivity in Living Room.",
+      "severity": "high",
+      "confidence": 94,
+      "timestamp": "20:42",
+      "location": "Living Room — Cam 02",
+      "status": "new"
+    },
+    {
+      "id": "evt-102",
+      "module": "bunkwatch",
+      "title": "Student identified during active bunk check",
+      "description": "Arun Kumar (23CSE104) matched outside scheduled Computer Networks class.",
+      "severity": "medium",
+      "confidence": 96,
+      "timestamp": "20:38",
+      "location": "Block B Corridor — Cam 04",
+      "status": "acknowledged"
+    },
+    {
+      "id": "evt-103",
+      "module": "core",
+      "title": "Crowd threshold exceeded",
+      "description": "Auditorium foyer reached 42 persons exceeding safe zone density parameter.",
+      "severity": "medium",
+      "confidence": 92,
+      "timestamp": "20:31",
+      "location": "Auditorium Foyer — Cam 01",
+      "status": "new"
+    },
+    {
+      "id": "evt-104",
+      "module": "core",
+      "title": "Waste classification completed",
+      "description": "Polyethylene terephthalate bottle recognized with high recyclable confidence.",
+      "severity": "low",
+      "confidence": 97,
+      "timestamp": "20:26",
+      "location": "Eco Bin Station A",
+      "status": "resolved"
+    },
+    {
+      "id": "evt-105",
+      "module": "campuspulse",
+      "title": "Emergency exit obstruction detected",
+      "description": "Heavy metal cart blocking fire escape stairwell door 2B.",
+      "severity": "critical",
+      "confidence": 96,
+      "timestamp": "20:18",
+      "location": "Block A — 2nd Floor Exit",
+      "status": "new"
+    },
+    {
+      "id": "evt-106",
+      "module": "campuspulse",
+      "title": "Water leakage puddle detected",
+      "description": "Continuous ceiling dripping forming slip hazard in science corridor.",
+      "severity": "high",
+      "confidence": 89,
+      "timestamp": "19:47",
+      "location": "Science Block Corridor",
+      "status": "in_progress"
+    },
+    {
+      "id": "evt-107",
+      "module": "campuspulse",
+      "title": "Overflowing waste bin",
+      "description": "Central cafeteria courtyard bin capacity exceeded 100%.",
+      "severity": "medium",
+      "confidence": 91,
+      "timestamp": "18:21",
+      "location": "Cafeteria Courtyard",
+      "status": "acknowledged"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alt-1791348418303",
+      "module": "ambulanceclear",
+      "eventType": "Emergency Route Blockage",
+      "title": "Ambulance Route Obstructed (3 Vehicles)",
+      "severity": "critical",
+      "confidence": 97,
+      "timestamp": "04:46:58 AM",
+      "location": "Cam 04 — Arterial Ring Road (Junction 7)",
+      "status": "new",
+      "assignedUser": "Traffic Command Center"
+    },
+    {
+      "id": "alt-001",
+      "module": "campuspulse",
+      "eventType": "Fire Safety Obstruction",
+      "title": "Emergency Exit Blocked",
+      "severity": "critical",
+      "confidence": 96,
+      "timestamp": "20:18",
+      "location": "Block A — 2nd Floor",
+      "status": "new",
+      "assignedUser": "Chief Warden"
+    },
+    {
+      "id": "alt-002",
+      "module": "elderguard",
+      "eventType": "Elder Fall Safety",
+      "title": "Possible Fall Detected",
+      "severity": "high",
+      "confidence": 94,
+      "timestamp": "20:42",
+      "location": "Living Room",
+      "status": "new",
+      "assignedUser": "Primary Caregiver"
+    },
+    {
+      "id": "alt-003",
+      "module": "campuspulse",
+      "eventType": "Infrastructure Damage",
+      "title": "Active Water Leakage Near Lab",
+      "severity": "high",
+      "confidence": 89,
+      "timestamp": "19:47",
+      "location": "Science Block Corridor",
+      "status": "in_progress",
+      "assignedUser": "Facilities Team"
+    },
+    {
+      "id": "alt-004",
+      "module": "bunkwatch",
+      "eventType": "Unauthorized Absence",
+      "title": "Student Flagged: Arun Kumar",
+      "severity": "medium",
+      "confidence": 96,
+      "timestamp": "20:38",
+      "location": "Block B Corridor",
+      "status": "acknowledged",
+      "assignedUser": "Dr. Priya"
+    },
+    {
+      "id": "alt-005",
+      "module": "core",
+      "eventType": "Crowd Density",
+      "title": "Auditorium Density Threshold",
+      "severity": "medium",
+      "confidence": 92,
+      "timestamp": "20:31",
+      "location": "Auditorium Foyer",
+      "status": "new"
+    },
+    {
+      "id": "alt-006",
+      "module": "campuspulse",
+      "eventType": "Sanitation",
+      "title": "Overflowing Bin Courtyard",
+      "severity": "medium",
+      "confidence": 91,
+      "timestamp": "18:21",
+      "location": "Cafeteria Courtyard",
+      "status": "acknowledged",
+      "assignedUser": "Cleaning Staff"
+    },
+    {
+      "id": "alt-007",
+      "module": "elderguard",
+      "eventType": "Inactivity Warning",
+      "title": "Prolonged Inactivity (18m)",
+      "severity": "medium",
+      "confidence": 88,
+      "timestamp": "11:26",
+      "location": "Bedroom Cam 01",
+      "status": "resolved",
+      "resolvedAt": "11:45"
+    },
+    {
+      "id": "alt-008",
+      "module": "elderguard",
+      "eventType": "Unusual Posture",
+      "title": "Slumped Posture in Chair",
+      "severity": "low",
+      "confidence": 82,
+      "timestamp": "09:18",
+      "location": "Reading Nook",
+      "status": "resolved",
+      "resolvedAt": "09:30"
+    }
+  ],
+  "students": [
+    {
+      "id": "std-104",
+      "name": "Arun Kumar",
+      "registrationNumber": "23CSE104",
+      "department": "Computer Science & Engineering",
+      "year": "II",
+      "section": "A",
+      "assignedCaId": "ca-priya",
+      "assignedCaName": "Dr. Priya",
+      "registeredPhoto": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80",
+      "status": "flagged",
+      "attendanceStatus": "not_detected",
+      "verificationCount": 0,
+      "lastConfidence": 0,
+      "timeSpentMinutes": 0,
+      "bunkRisk": {
+        "score": 62,
+        "level": "moderate",
+        "factors": [
+          "Attendance rate 79% is near the 75% institutional threshold (+12)",
+          "5 missed lectures logged across current semester (+25)",
+          "2 early departures logged before class completion (+20)",
+          "3 late arrivals past 10-minute grace period (+15)"
+        ],
+        "attendanceRate": 79,
+        "missedClassesCount": 5,
+        "lateEntriesCount": 3,
+        "earlyExitsCount": 2,
+        "totalClassesHeld": 24,
+        "needsFacultyReview": true
+      },
+      "anomalies": [
+        {
+          "id": "anom-ak-1",
+          "type": "rapid_exit",
+          "title": "Rapid Corridor Departure",
+          "description": "Departed corridor 14 minutes after Period 3 started during Computer Networks.",
+          "severity": "medium",
+          "detectedTime": "Oct 05, 09:14 AM"
+        },
+        {
+          "id": "anom-ak-2",
+          "type": "pattern_deviation",
+          "title": "Recurring Period 1 Delay",
+          "description": "Arrived after 10-minute grace period on 3 consecutive Monday morning lectures.",
+          "severity": "low",
+          "detectedTime": "Sep 29, 09:12 AM"
+        }
+      ],
+      "history": [
+        {
+          "id": "rec-ak-1",
+          "date": "Oct 05, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "09:14 AM",
+          "exitTime": "09:28 AM",
+          "timeSpentMinutes": 14,
+          "expectedDurationMinutes": 50,
+          "status": "early_exit",
+          "earlyExitMinutes": 22
+        },
+        {
+          "id": "rec-ak-2",
+          "date": "Oct 03, 2026",
+          "subject": "Database Management Systems",
+          "className": "CSE - A",
+          "entryTime": "11:15 AM",
+          "exitTime": "12:00 PM",
+          "timeSpentMinutes": 45,
+          "expectedDurationMinutes": 50,
+          "status": "late_entry",
+          "lateMinutes": 15
+        },
+        {
+          "id": "rec-ak-3",
+          "date": "Oct 02, 2026",
+          "subject": "Design & Analysis of Algorithms",
+          "className": "CSE - A",
+          "entryTime": "02:02 PM",
+          "exitTime": "02:50 PM",
+          "timeSpentMinutes": 48,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        },
+        {
+          "id": "rec-ak-4",
+          "date": "Sep 30, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "—",
+          "exitTime": "—",
+          "timeSpentMinutes": 0,
+          "expectedDurationMinutes": 50,
+          "status": "missed"
+        },
+        {
+          "id": "rec-ak-5",
+          "date": "Sep 28, 2026",
+          "subject": "Operating Systems",
+          "className": "CSE - A",
+          "entryTime": "10:04 AM",
+          "exitTime": "10:50 AM",
+          "timeSpentMinutes": 46,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        }
+      ]
+    },
+    {
+      "id": "std-118",
+      "name": "Priya Sundaram",
+      "registrationNumber": "23CSE118",
+      "department": "Computer Science & Engineering",
+      "year": "II",
+      "section": "A",
+      "assignedCaId": "ca-priya",
+      "assignedCaName": "Dr. Priya",
+      "registeredPhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+      "status": "enrolled",
+      "attendanceStatus": "not_detected",
+      "verificationCount": 0,
+      "lastConfidence": 0,
+      "timeSpentMinutes": 0,
+      "bunkRisk": {
+        "score": 8,
+        "level": "low",
+        "factors": [
+          "Exemplary on-time attendance pattern (96% overall rate)",
+          "0 early departures or grace period violations recorded"
+        ],
+        "attendanceRate": 96,
+        "missedClassesCount": 1,
+        "lateEntriesCount": 0,
+        "earlyExitsCount": 0,
+        "totalClassesHeld": 24,
+        "needsFacultyReview": false
+      },
+      "anomalies": [],
+      "history": [
+        {
+          "id": "rec-ps-1",
+          "date": "Oct 05, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "08:58 AM",
+          "exitTime": "09:50 AM",
+          "timeSpentMinutes": 50,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        },
+        {
+          "id": "rec-ps-2",
+          "date": "Oct 03, 2026",
+          "subject": "Database Management Systems",
+          "className": "CSE - A",
+          "entryTime": "11:00 AM",
+          "exitTime": "11:50 AM",
+          "timeSpentMinutes": 50,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        },
+        {
+          "id": "rec-ps-3",
+          "date": "Oct 02, 2026",
+          "subject": "Design & Analysis of Algorithms",
+          "className": "CSE - A",
+          "entryTime": "02:00 PM",
+          "exitTime": "02:50 PM",
+          "timeSpentMinutes": 50,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        },
+        {
+          "id": "rec-ps-4",
+          "date": "Sep 30, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "09:01 AM",
+          "exitTime": "09:50 AM",
+          "timeSpentMinutes": 49,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        }
+      ]
+    },
+    {
+      "id": "std-126",
+      "name": "Rahul Mohan",
+      "registrationNumber": "23CSE126",
+      "department": "Computer Science & Engineering",
+      "year": "II",
+      "section": "A",
+      "assignedCaId": "ca-priya",
+      "assignedCaName": "Dr. Priya",
+      "registeredPhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      "status": "enrolled",
+      "attendanceStatus": "not_detected",
+      "verificationCount": 0,
+      "lastConfidence": 0,
+      "timeSpentMinutes": 0,
+      "bunkRisk": {
+        "score": 42,
+        "level": "moderate",
+        "factors": [
+          "4 late arrivals logged past 10-minute grace period (+15)",
+          "3 missed lectures recorded (+15)",
+          "1 early departure recorded (+10)"
+        ],
+        "attendanceRate": 87,
+        "missedClassesCount": 3,
+        "lateEntriesCount": 4,
+        "earlyExitsCount": 1,
+        "totalClassesHeld": 24,
+        "needsFacultyReview": false
+      },
+      "anomalies": [
+        {
+          "id": "anom-rm-1",
+          "type": "borderline_threshold",
+          "title": "Marginal Verification Match",
+          "description": "Facial detection confidence hovered at 76% in lower lighting conditions on Oct 03.",
+          "severity": "low",
+          "detectedTime": "Oct 03, 11:18 AM"
+        }
+      ],
+      "history": [
+        {
+          "id": "rec-rm-1",
+          "date": "Oct 05, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "09:12 AM",
+          "exitTime": "09:50 AM",
+          "timeSpentMinutes": 38,
+          "expectedDurationMinutes": 50,
+          "status": "late_entry",
+          "lateMinutes": 12
+        },
+        {
+          "id": "rec-rm-2",
+          "date": "Oct 03, 2026",
+          "subject": "Database Management Systems",
+          "className": "CSE - A",
+          "entryTime": "11:02 AM",
+          "exitTime": "11:50 AM",
+          "timeSpentMinutes": 48,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        },
+        {
+          "id": "rec-rm-3",
+          "date": "Oct 02, 2026",
+          "subject": "Design & Analysis of Algorithms",
+          "className": "CSE - A",
+          "entryTime": "—",
+          "exitTime": "—",
+          "timeSpentMinutes": 0,
+          "expectedDurationMinutes": 50,
+          "status": "missed"
+        },
+        {
+          "id": "rec-rm-4",
+          "date": "Sep 30, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "09:16 AM",
+          "exitTime": "09:50 AM",
+          "timeSpentMinutes": 34,
+          "expectedDurationMinutes": 50,
+          "status": "late_entry",
+          "lateMinutes": 16
+        }
+      ]
+    },
+    {
+      "id": "std-142",
+      "name": "Sneha Reddy",
+      "registrationNumber": "23CSE142",
+      "department": "Computer Science & Engineering",
+      "year": "II",
+      "section": "B",
+      "assignedCaId": "ca-sharma",
+      "assignedCaName": "Prof. Sharma",
+      "registeredPhoto": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80",
+      "status": "enrolled",
+      "attendanceStatus": "not_detected",
+      "verificationCount": 0,
+      "lastConfidence": 0,
+      "timeSpentMinutes": 0,
+      "bunkRisk": {
+        "score": 18,
+        "level": "low",
+        "factors": [
+          "Consistent attendance rate of 92%",
+          "Single isolated late entry this month (+6)"
+        ],
+        "attendanceRate": 92,
+        "missedClassesCount": 2,
+        "lateEntriesCount": 1,
+        "earlyExitsCount": 0,
+        "totalClassesHeld": 24,
+        "needsFacultyReview": false
+      },
+      "anomalies": [],
+      "history": [
+        {
+          "id": "rec-sr-1",
+          "date": "Oct 05, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - B",
+          "entryTime": "09:00 AM",
+          "exitTime": "09:50 AM",
+          "timeSpentMinutes": 50,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        },
+        {
+          "id": "rec-sr-2",
+          "date": "Oct 03, 2026",
+          "subject": "Database Management Systems",
+          "className": "CSE - B",
+          "entryTime": "11:00 AM",
+          "exitTime": "11:50 AM",
+          "timeSpentMinutes": 50,
+          "expectedDurationMinutes": 50,
+          "status": "on_time"
+        }
+      ]
+    },
+    {
+      "id": "std-155",
+      "name": "Vikram Karthik",
+      "registrationNumber": "23CSE155",
+      "department": "Computer Science & Engineering",
+      "year": "II",
+      "section": "A",
+      "assignedCaId": "ca-priya",
+      "assignedCaName": "Dr. Priya",
+      "registeredPhoto": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
+      "status": "flagged",
+      "attendanceStatus": "not_detected",
+      "verificationCount": 0,
+      "lastConfidence": 0,
+      "timeSpentMinutes": 0,
+      "bunkRisk": {
+        "score": 84,
+        "level": "high",
+        "factors": [
+          "Attendance rate 66% is critically below the 75% institutional requirement (+45)",
+          "8 missed lectures accumulated across semester (+25)",
+          "3 unexcused early departures before period completion (+20)",
+          "4 late arrivals past 10-minute grace period (+15)",
+          "3 active attendance anomalies awaiting faculty review (+15)"
+        ],
+        "attendanceRate": 66,
+        "missedClassesCount": 8,
+        "lateEntriesCount": 4,
+        "earlyExitsCount": 3,
+        "totalClassesHeld": 24,
+        "needsFacultyReview": true
+      },
+      "anomalies": [
+        {
+          "id": "anom-vk-1",
+          "type": "rapid_exit",
+          "title": "Stairwell Early Exit Detected",
+          "description": "Crossed stairwell boundary 22 minutes prior to lecture completion.",
+          "severity": "high",
+          "detectedTime": "Oct 04, 02:28 PM"
+        },
+        {
+          "id": "anom-vk-2",
+          "type": "pattern_deviation",
+          "title": "Critical Sub-75% Attendance Trend",
+          "description": "Cumulative attendance rate dropped to 66% across core CSE subjects.",
+          "severity": "high",
+          "detectedTime": "Oct 02, 05:00 PM"
+        },
+        {
+          "id": "anom-vk-3",
+          "type": "unusual_dwell",
+          "title": "Corridor Transit without Classroom Entry",
+          "description": "Briefly tracked in Block B corridor during Period 2 without attending scheduled lecture.",
+          "severity": "medium",
+          "detectedTime": "Sep 29, 10:15 AM"
+        }
+      ],
+      "history": [
+        {
+          "id": "rec-vk-1",
+          "date": "Oct 04, 2026",
+          "subject": "Operating Systems",
+          "className": "CSE - A",
+          "entryTime": "02:00 PM",
+          "exitTime": "02:28 PM",
+          "timeSpentMinutes": 28,
+          "expectedDurationMinutes": 50,
+          "status": "early_exit",
+          "earlyExitMinutes": 22
+        },
+        {
+          "id": "rec-vk-2",
+          "date": "Oct 03, 2026",
+          "subject": "Database Management Systems",
+          "className": "CSE - A",
+          "entryTime": "—",
+          "exitTime": "—",
+          "timeSpentMinutes": 0,
+          "expectedDurationMinutes": 50,
+          "status": "missed"
+        },
+        {
+          "id": "rec-vk-3",
+          "date": "Oct 02, 2026",
+          "subject": "Design & Analysis of Algorithms",
+          "className": "CSE - A",
+          "entryTime": "02:18 PM",
+          "exitTime": "02:50 PM",
+          "timeSpentMinutes": 32,
+          "expectedDurationMinutes": 50,
+          "status": "late_entry",
+          "lateMinutes": 18
+        },
+        {
+          "id": "rec-vk-4",
+          "date": "Sep 30, 2026",
+          "subject": "Computer Networks",
+          "className": "CSE - A",
+          "entryTime": "—",
+          "exitTime": "—",
+          "timeSpentMinutes": 0,
+          "expectedDurationMinutes": 50,
+          "status": "missed"
+        },
+        {
+          "id": "rec-vk-5",
+          "date": "Sep 29, 2026",
+          "subject": "Web Technologies",
+          "className": "CSE - A",
+          "entryTime": "10:00 AM",
+          "exitTime": "10:25 AM",
+          "timeSpentMinutes": 25,
+          "expectedDurationMinutes": 50,
+          "status": "early_exit",
+          "earlyExitMinutes": 25
+        }
+      ]
+    }
+  ],
+  "bunkSession": {
+    "id": "bunk-sess-01",
+    "className": "CSE - A",
+    "subject": "Computer Networks",
+    "period": 3,
+    "caId": "ca-priya",
+    "caName": "Dr. Priya",
+    "camera": "Block B Cam 04",
+    "startTime": "2026-10-07T04:26:47.480Z",
+    "status": "active",
+    "durationSec": 512,
+    "identifiedCount": 18,
+    "matchCount": 15,
+    "unmatchedCount": 3
+  },
+  "bunkMatches": [
+    {
+      "id": "bm-01",
+      "time": "11:42",
+      "studentName": "Arun Kumar",
+      "regNumber": "23CSE104",
+      "department": "CSE",
+      "year": "II",
+      "section": "A",
+      "caName": "Dr. Priya",
+      "location": "Block B Corridor",
+      "confidence": 96,
+      "status": "Match",
+      "capturedImage": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80",
+      "registeredPhoto": "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80",
+      "notificationSent": true
+    },
+    {
+      "id": "bm-02",
+      "time": "11:45",
+      "studentName": "Priya Sundaram",
+      "regNumber": "23CSE118",
+      "department": "CSE",
+      "year": "II",
+      "section": "A",
+      "caName": "Dr. Priya",
+      "location": "Canteen Garden",
+      "confidence": 94,
+      "status": "Match",
+      "capturedImage": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+      "registeredPhoto": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80",
+      "notificationSent": true
+    },
+    {
+      "id": "bm-03",
+      "time": "11:48",
+      "studentName": "Rahul Mohan",
+      "regNumber": "23CSE126",
+      "department": "CSE",
+      "year": "II",
+      "section": "A",
+      "caName": "Dr. Priya",
+      "location": "Ground Floor Parking",
+      "confidence": 78,
+      "status": "Review",
+      "capturedImage": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      "registeredPhoto": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80",
+      "notificationSent": false
+    }
+  ],
+  "elderStatus": {
+    "status": "SAFE",
+    "currentActivity": "Walking",
+    "lastMovementSecondsAgo": 18,
+    "alertsToday": 2,
+    "fallSensitivity": 85,
+    "inactivityThresholdSec": 30,
+    "monitoredCamera": "Living Room Cam 02",
+    "monitoredResident": "Arthur Vance (Age 78)",
+    "safeZones": [
+      "Living Room",
+      "Reading Nook",
+      "Kitchen Corridor"
+    ]
+  },
+  "elderTimeline": [
+    {
+      "id": "et-1",
+      "time": "08:12",
+      "activity": "Walking",
+      "severity": "safe",
+      "location": "Bedroom to Kitchen"
+    },
+    {
+      "id": "et-2",
+      "time": "09:03",
+      "activity": "Sitting",
+      "severity": "safe",
+      "location": "Living Room Armchair"
+    },
+    {
+      "id": "et-3",
+      "time": "10:21",
+      "activity": "Kitchen",
+      "severity": "safe",
+      "location": "Kitchen Counter"
+    },
+    {
+      "id": "et-4",
+      "time": "11:45",
+      "activity": "Sitting",
+      "severity": "safe",
+      "location": "Reading Nook"
+    },
+    {
+      "id": "et-5",
+      "time": "14:32",
+      "activity": "Possible Fall",
+      "severity": "high",
+      "location": "Living Room Floor",
+      "inactivitySeconds": 32
+    },
+    {
+      "id": "et-6",
+      "time": "14:33",
+      "activity": "No Movement",
+      "severity": "high",
+      "location": "Living Room Floor",
+      "inactivitySeconds": 94
+    }
+  ],
+  "campusIssues": [
+    {
+      "id": "iss-01",
+      "title": "Emergency Exit Blocked",
+      "type": "Safety",
+      "location": "Block A — 2nd Floor",
+      "detectedTime": "20:32",
+      "evidenceUrl": "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=600&q=80",
+      "confidence": 94,
+      "severity": "critical",
+      "priorityScore": 96,
+      "status": "new",
+      "impactMetrics": {
+        "safetyImpact": "Critical",
+        "peopleAffected": "High",
+        "persistence": "8 min"
+      }
+    },
+    {
+      "id": "iss-02",
+      "title": "Water Leakage Puddle",
+      "type": "Infrastructure",
+      "location": "Science Block Corridor",
+      "detectedTime": "19:47",
+      "evidenceUrl": "https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&w=600&q=80",
+      "confidence": 91,
+      "severity": "high",
+      "priorityScore": 81,
+      "status": "in_progress",
+      "assignedTo": "Facilities Crew",
+      "impactMetrics": {
+        "safetyImpact": "High",
+        "peopleAffected": "Medium",
+        "persistence": "22 min"
+      }
+    },
+    {
+      "id": "iss-03",
+      "title": "Overflowing Bin Station",
+      "type": "Cleanliness",
+      "location": "Central Cafeteria Courtyard",
+      "detectedTime": "18:21",
+      "evidenceUrl": "https://images.unsplash.com/photo-1605600659873-d808a13e4d2a?auto=format&fit=crop&w=600&q=80",
+      "confidence": 89,
+      "severity": "medium",
+      "priorityScore": 61,
+      "status": "acknowledged",
+      "assignedTo": "Sanitation Team",
+      "impactMetrics": {
+        "safetyImpact": "Low",
+        "peopleAffected": "High",
+        "persistence": "45 min"
+      }
+    },
+    {
+      "id": "iss-04",
+      "title": "Crowd Congestion Surge",
+      "type": "Crowding",
+      "location": "Auditorium Exit Gate 3",
+      "detectedTime": "17:05",
+      "evidenceUrl": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=600&q=80",
+      "confidence": 88,
+      "severity": "medium",
+      "priorityScore": 68,
+      "status": "resolved",
+      "assignedTo": "Campus Security",
+      "impactMetrics": {
+        "safetyImpact": "Medium",
+        "peopleAffected": "High",
+        "persistence": "14 min"
+      }
+    }
+  ],
+  "ambulanceClear": {
+    "ambulanceStatus": "ACTIVE",
+    "clearanceScore": 64,
+    "trafficDensity": "HIGH",
+    "blockedVehiclesCount": 3,
+    "estimatedDelaySec": 18,
+    "ambulanceSpeedKmh": 14,
+    "activeCamera": "Cam 04 — Arterial Ring Road (Junction 7)",
+    "routeCorridorName": "Arterial Central Corridor 4B",
+    "destinationHospital": "Metro General Trauma Center",
+    "etaMinutes": 4.8,
+    "availableLaneSpaceMeters": 1.1,
+    "roadOccupancyPercent": 94,
+    "ambulanceMovement": "Crawling (<10 km/h)",
+    "breakdownScores": {
+      "roadClearance": 12,
+      "blockingPenalty": -45,
+      "trafficDensityFactor": -25,
+      "ambulanceMovementScore": 0,
+      "availableLaneSpaceScore": 6
+    },
+    "lanes": [
+      {
+        "id": 1,
+        "name": "Lane 1 (Left Transit)",
+        "type": "general",
+        "occupancyPercent": 72,
+        "vehicleCount": 6,
+        "isPathBlocked": false,
+        "yieldingState": "Yielding Left"
+      },
+      {
+        "id": 2,
+        "name": "Lane 2 (Emergency Central)",
+        "type": "emergency_primary",
+        "occupancyPercent": 96,
+        "vehicleCount": 4,
+        "isPathBlocked": true,
+        "yieldingState": "Blocked"
+      },
+      {
+        "id": 3,
+        "name": "Lane 3 (Right Shoulder Buffer)",
+        "type": "shoulder",
+        "occupancyPercent": 35,
+        "vehicleCount": 2,
+        "isPathBlocked": false,
+        "yieldingState": "Clear Corridor"
+      }
+    ],
+    "vehicles": [
+      {
+        "id": "amb-01",
+        "type": "ambulance",
+        "label": "Ambulance (Emergency Vehicle)",
+        "confidence": 99,
+        "lane": 2,
+        "distanceMeters": 0,
+        "speedKmh": 14,
+        "status": "blocking",
+        "ymin": 720,
+        "xmin": 390,
+        "ymax": 960,
+        "xmax": 610,
+        "trackId": "AMB-911",
+        "color": "#ef4444"
+      },
+      {
+        "id": "veh-car-01",
+        "type": "car",
+        "label": "Sedan (Path Blocker 1)",
+        "confidence": 95,
+        "lane": 2,
+        "distanceMeters": 12,
+        "speedKmh": 4,
+        "status": "blocking",
+        "ymin": 510,
+        "xmin": 410,
+        "ymax": 670,
+        "xmax": 570,
+        "trackId": "CAR-104",
+        "color": "#ef4444"
+      },
+      {
+        "id": "veh-car-02",
+        "type": "car",
+        "label": "Silver SUV (Path Blocker 2)",
+        "confidence": 93,
+        "lane": 2,
+        "distanceMeters": 24,
+        "speedKmh": 0,
+        "status": "blocking",
+        "ymin": 360,
+        "xmin": 420,
+        "ymax": 490,
+        "xmax": 560,
+        "trackId": "SUV-218",
+        "color": "#ef4444"
+      },
+      {
+        "id": "veh-car-03",
+        "type": "car",
+        "label": "Hatchback (Path Blocker 3)",
+        "confidence": 91,
+        "lane": 2,
+        "distanceMeters": 38,
+        "speedKmh": 0,
+        "status": "blocking",
+        "ymin": 240,
+        "xmin": 430,
+        "ymax": 340,
+        "xmax": 550,
+        "trackId": "CAR-309",
+        "color": "#ef4444"
+      },
+      {
+        "id": "veh-bus-01",
+        "type": "bus",
+        "label": "City Bus",
+        "confidence": 96,
+        "lane": 1,
+        "distanceMeters": 28,
+        "speedKmh": 8,
+        "status": "yielding",
+        "ymin": 280,
+        "xmin": 160,
+        "ymax": 530,
+        "xmax": 340,
+        "trackId": "BUS-08",
+        "color": "#a855f7"
+      },
+      {
+        "id": "veh-moto-01",
+        "type": "motorcycle",
+        "label": "Motorcycle",
+        "confidence": 89,
+        "lane": 3,
+        "distanceMeters": 18,
+        "speedKmh": 12,
+        "status": "clear",
+        "ymin": 440,
+        "xmin": 690,
+        "ymax": 540,
+        "xmax": 770,
+        "trackId": "MOTO-14",
+        "color": "#f59e0b"
+      },
+      {
+        "id": "veh-ped-01",
+        "type": "pedestrian",
+        "label": "Pedestrian (Curb Refuge)",
+        "confidence": 92,
+        "lane": 3,
+        "distanceMeters": 30,
+        "speedKmh": 2,
+        "status": "clear",
+        "ymin": 310,
+        "xmin": 840,
+        "ymax": 410,
+        "xmax": 890,
+        "trackId": "PED-02",
+        "color": "#38bdf8"
+      }
+    ],
+    "timeline": [
+      {
+        "id": "tl-1791348418303",
+        "timestamp": "04:46:58 AM",
+        "event": "Clearance score: 32 — CRITICAL",
+        "detail": "3 vehicles detected directly in emergency path. Chokepoint completely obstructed.",
+        "severity": "critical",
+        "clearanceScore": 32,
+        "blockedCount": 3
+      },
+      {
+        "id": "tl-6",
+        "timestamp": "20:41:17",
+        "event": "Clearance score: 71",
+        "detail": "Vehicle CAR-104 steering left into Lane 1 buffer; emergency path expanding.",
+        "severity": "medium",
+        "clearanceScore": 71,
+        "blockedCount": 2
+      },
+      {
+        "id": "tl-5",
+        "timestamp": "20:41:13",
+        "event": "Lane partially cleared",
+        "detail": "Shoulder corridor detected 2.8m lateral gap; lead car beginning evasive yield.",
+        "severity": "medium",
+        "clearanceScore": 54,
+        "blockedCount": 2
+      },
+      {
+        "id": "tl-4",
+        "timestamp": "20:41:09",
+        "event": "Clearance score: 32",
+        "detail": "Critical bottleneck: 3 stationary vehicles directly obstructing priority lane.",
+        "severity": "critical",
+        "clearanceScore": 32,
+        "blockedCount": 3
+      },
+      {
+        "id": "tl-3",
+        "timestamp": "20:41:07",
+        "event": "Emergency lane blocked",
+        "detail": "Forward trajectory locked at KP-4 bottleneck. Estimated delay +18 sec.",
+        "severity": "critical",
+        "clearanceScore": 41,
+        "blockedCount": 3
+      },
+      {
+        "id": "tl-2",
+        "timestamp": "20:41:05",
+        "event": "Traffic density increasing",
+        "detail": "Arterial ring road occupancy spiked to 78% during peak signal phase.",
+        "severity": "high",
+        "clearanceScore": 58,
+        "blockedCount": 2
+      },
+      {
+        "id": "tl-1",
+        "timestamp": "20:41:02",
+        "event": "Ambulance detected",
+        "detail": "Emergency beacon signature recognized on Cam 04. Siren acoustic detected.",
+        "severity": "high",
+        "clearanceScore": 68,
+        "blockedCount": 1
+      }
+    ],
+    "preemptionActive": false
+  }
+}

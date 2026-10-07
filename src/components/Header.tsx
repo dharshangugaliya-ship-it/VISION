@@ -35,6 +35,8 @@ export const Header: React.FC<Props> = ({
         return { title: 'BunkWatch', desc: 'Authorized session-based campus attendance & bunk verification' };
       case 'campuspulse':
         return { title: 'CampusPulse', desc: 'AI campus safety & infrastructure inspection system' };
+      case 'ambulanceclear':
+        return { title: 'AmbulanceClear', desc: 'Emergency-route intelligence — Real-time path clearance & blockage analysis' };
       case 'analytics':
         return { title: 'Analytics Engine', desc: 'Comprehensive telemetry, detection trends & risk distribution' };
       case 'alerts':

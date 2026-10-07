@@ -10,6 +10,7 @@ import {
   CampusIssue,
   CampusHealthScores,
   AnalysisSessionResult,
+  AmbulanceClearState,
 } from '../types/vision';
 
 export const api = {
@@ -301,6 +302,30 @@ export const api = {
   }>> {
     const res = await fetch('/api/demo/scenarios');
     if (!res.ok) throw new Error('Failed to fetch demo scenarios');
+    return res.json();
+  },
+
+  async getAmbulanceClearState(): Promise<AmbulanceClearState> {
+    const res = await fetch('/api/ambulanceclear/state');
+    if (!res.ok) throw new Error('Failed to fetch ambulanceclear state');
+    return res.json();
+  },
+
+  async simulateAmbulanceAction(action: 'block_traffic' | 'partial_clear' | 'full_clear' | 'toggle_preemption' | 'reset'): Promise<AmbulanceClearState> {
+    const res = await fetch('/api/ambulanceclear/simulate-action', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action }),
+    });
+    if (!res.ok) throw new Error('Failed to execute ambulance action');
+    return res.json();
+  },
+
+  async triggerSignalPreemption(): Promise<AmbulanceClearState> {
+    const res = await fetch('/api/ambulanceclear/preemption', {
+      method: 'POST',
+    });
+    if (!res.ok) throw new Error('Failed to trigger signal preemption');
     return res.json();
   },
 };

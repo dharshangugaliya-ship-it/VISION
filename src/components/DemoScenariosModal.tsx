@@ -11,6 +11,7 @@ import {
   GraduationCap,
   Building2,
   CheckCircle2,
+  Siren,
 } from 'lucide-react';
 
 interface Props {
@@ -96,6 +97,16 @@ export const DemoScenariosModal: React.FC<Props> = ({
       module: 'campuspulse',
       thumbnail: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=400&q=80',
       badge: 'Inspection',
+    },
+    {
+      id: 'demo-8',
+      number: '8',
+      title: 'AmbulanceClear Intelligence',
+      desc: 'Emergency-route intelligence: detect 3 blocking vehicles in path, compute clearance score.',
+      icon: Siren,
+      module: 'ambulanceclear',
+      thumbnail: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=400&q=80',
+      badge: 'Emergency Route',
     },
   ];
 

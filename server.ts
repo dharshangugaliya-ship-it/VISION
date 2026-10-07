@@ -165,6 +165,63 @@ interface DBState {
       persistence: string;
     };
   }>;
+  ambulanceClear: {
+    ambulanceStatus: 'ACTIVE' | 'IDLE' | 'CRITICAL_BLOCKED' | 'CLEARED' | 'EN_ROUTE';
+    clearanceScore: number;
+    trafficDensity: 'LOW' | 'MODERATE' | 'HIGH' | 'SEVERE';
+    blockedVehiclesCount: number;
+    estimatedDelaySec: number;
+    ambulanceSpeedKmh: number;
+    activeCamera: string;
+    routeCorridorName: string;
+    destinationHospital: string;
+    etaMinutes: number;
+    availableLaneSpaceMeters: number;
+    roadOccupancyPercent: number;
+    ambulanceMovement: 'Stationary / Trapped' | 'Crawling (<10 km/h)' | 'Slowing Down' | 'Cruising (45 km/h)';
+    breakdownScores: {
+      roadClearance: number;
+      blockingPenalty: number;
+      trafficDensityFactor: number;
+      ambulanceMovementScore: number;
+      availableLaneSpaceScore: number;
+    };
+    lanes: Array<{
+      id: number;
+      name: string;
+      type: 'general' | 'emergency_primary' | 'shoulder';
+      occupancyPercent: number;
+      vehicleCount: number;
+      isPathBlocked: boolean;
+      yieldingState: 'Yielding Left' | 'Blocked' | 'Clear Corridor' | 'Yielding Right';
+    }>;
+    vehicles: Array<{
+      id: string;
+      type: 'ambulance' | 'car' | 'bus' | 'motorcycle' | 'pedestrian';
+      label: string;
+      confidence: number;
+      lane: number;
+      distanceMeters: number;
+      speedKmh: number;
+      status: 'blocking' | 'yielding' | 'clear' | 'stationary' | 'cutting_in';
+      ymin: number;
+      xmin: number;
+      ymax: number;
+      xmax: number;
+      trackId: string;
+      color: string;
+    }>;
+    timeline: Array<{
+      id: string;
+      timestamp: string;
+      event: string;
+      detail: string;
+      severity: string;
+      clearanceScore: number;
+      blockedCount: number;
+    }>;
+    preemptionActive: boolean;
+  };
 }
 
 const db: DBState = {
@@ -960,6 +1017,228 @@ const db: DBState = {
       },
     },
   ],
+  ambulanceClear: {
+    ambulanceStatus: 'ACTIVE',
+    clearanceScore: 64,
+    trafficDensity: 'HIGH',
+    blockedVehiclesCount: 3,
+    estimatedDelaySec: 18,
+    ambulanceSpeedKmh: 14,
+    activeCamera: 'Cam 04 — Arterial Ring Road (Junction 7)',
+    routeCorridorName: 'Arterial Central Corridor 4B',
+    destinationHospital: 'Metro General Trauma Center',
+    etaMinutes: 4.8,
+    availableLaneSpaceMeters: 2.2,
+    roadOccupancyPercent: 78,
+    ambulanceMovement: 'Crawling (<10 km/h)',
+    breakdownScores: {
+      roadClearance: 35,
+      blockingPenalty: -24,
+      trafficDensityFactor: -12,
+      ambulanceMovementScore: 15,
+      availableLaneSpaceScore: 18,
+    },
+    lanes: [
+      {
+        id: 1,
+        name: 'Lane 1 (Left Transit)',
+        type: 'general',
+        occupancyPercent: 72,
+        vehicleCount: 6,
+        isPathBlocked: false,
+        yieldingState: 'Yielding Left',
+      },
+      {
+        id: 2,
+        name: 'Lane 2 (Emergency Central)',
+        type: 'emergency_primary',
+        occupancyPercent: 88,
+        vehicleCount: 4,
+        isPathBlocked: true,
+        yieldingState: 'Blocked',
+      },
+      {
+        id: 3,
+        name: 'Lane 3 (Right Shoulder Buffer)',
+        type: 'shoulder',
+        occupancyPercent: 35,
+        vehicleCount: 2,
+        isPathBlocked: false,
+        yieldingState: 'Clear Corridor',
+      },
+    ],
+    vehicles: [
+      {
+        id: 'amb-01',
+        type: 'ambulance',
+        label: 'Ambulance (Emergency Vehicle)',
+        confidence: 99,
+        lane: 2,
+        distanceMeters: 0,
+        speedKmh: 14,
+        status: 'blocking',
+        ymin: 720,
+        xmin: 390,
+        ymax: 960,
+        xmax: 610,
+        trackId: 'AMB-911',
+        color: '#ef4444',
+      },
+      {
+        id: 'veh-car-01',
+        type: 'car',
+        label: 'Sedan (Path Blocker 1)',
+        confidence: 95,
+        lane: 2,
+        distanceMeters: 12,
+        speedKmh: 4,
+        status: 'blocking',
+        ymin: 510,
+        xmin: 410,
+        ymax: 670,
+        xmax: 570,
+        trackId: 'CAR-104',
+        color: '#ef4444',
+      },
+      {
+        id: 'veh-car-02',
+        type: 'car',
+        label: 'Silver SUV (Path Blocker 2)',
+        confidence: 93,
+        lane: 2,
+        distanceMeters: 24,
+        speedKmh: 0,
+        status: 'blocking',
+        ymin: 360,
+        xmin: 420,
+        ymax: 490,
+        xmax: 560,
+        trackId: 'SUV-218',
+        color: '#ef4444',
+      },
+      {
+        id: 'veh-car-03',
+        type: 'car',
+        label: 'Hatchback (Path Blocker 3)',
+        confidence: 91,
+        lane: 2,
+        distanceMeters: 38,
+        speedKmh: 0,
+        status: 'blocking',
+        ymin: 240,
+        xmin: 430,
+        ymax: 340,
+        xmax: 550,
+        trackId: 'CAR-309',
+        color: '#ef4444',
+      },
+      {
+        id: 'veh-bus-01',
+        type: 'bus',
+        label: 'City Bus',
+        confidence: 96,
+        lane: 1,
+        distanceMeters: 28,
+        speedKmh: 8,
+        status: 'yielding',
+        ymin: 280,
+        xmin: 160,
+        ymax: 530,
+        xmax: 340,
+        trackId: 'BUS-08',
+        color: '#a855f7',
+      },
+      {
+        id: 'veh-moto-01',
+        type: 'motorcycle',
+        label: 'Motorcycle',
+        confidence: 89,
+        lane: 3,
+        distanceMeters: 18,
+        speedKmh: 12,
+        status: 'clear',
+        ymin: 440,
+        xmin: 690,
+        ymax: 540,
+        xmax: 770,
+        trackId: 'MOTO-14',
+        color: '#f59e0b',
+      },
+      {
+        id: 'veh-ped-01',
+        type: 'pedestrian',
+        label: 'Pedestrian (Curb Refuge)',
+        confidence: 92,
+        lane: 3,
+        distanceMeters: 30,
+        speedKmh: 2,
+        status: 'clear',
+        ymin: 310,
+        xmin: 840,
+        ymax: 410,
+        xmax: 890,
+        trackId: 'PED-02',
+        color: '#38bdf8',
+      },
+    ],
+    timeline: [
+      {
+        id: 'tl-6',
+        timestamp: '20:41:17',
+        event: 'Clearance score: 71',
+        detail: 'Vehicle CAR-104 steering left into Lane 1 buffer; emergency path expanding.',
+        severity: 'medium',
+        clearanceScore: 71,
+        blockedCount: 2,
+      },
+      {
+        id: 'tl-5',
+        timestamp: '20:41:13',
+        event: 'Lane partially cleared',
+        detail: 'Shoulder corridor detected 2.8m lateral gap; lead car beginning evasive yield.',
+        severity: 'medium',
+        clearanceScore: 54,
+        blockedCount: 2,
+      },
+      {
+        id: 'tl-4',
+        timestamp: '20:41:09',
+        event: 'Clearance score: 32',
+        detail: 'Critical bottleneck: 3 stationary vehicles directly obstructing priority lane.',
+        severity: 'critical',
+        clearanceScore: 32,
+        blockedCount: 3,
+      },
+      {
+        id: 'tl-3',
+        timestamp: '20:41:07',
+        event: 'Emergency lane blocked',
+        detail: 'Forward trajectory locked at KP-4 bottleneck. Estimated delay +18 sec.',
+        severity: 'critical',
+        clearanceScore: 41,
+        blockedCount: 3,
+      },
+      {
+        id: 'tl-2',
+        timestamp: '20:41:05',
+        event: 'Traffic density increasing',
+        detail: 'Arterial ring road occupancy spiked to 78% during peak signal phase.',
+        severity: 'high',
+        clearanceScore: 58,
+        blockedCount: 2,
+      },
+      {
+        id: 'tl-1',
+        timestamp: '20:41:02',
+        event: 'Ambulance detected',
+        detail: 'Emergency beacon signature recognized on Cam 04. Siren acoustic detected.',
+        severity: 'high',
+        clearanceScore: 68,
+        blockedCount: 1,
+      },
+    ],
+    preemptionActive: false,
+  },
 };
 
 // ==========================================
@@ -1006,6 +1285,7 @@ function loadDB() {
       if (loaded.elderStatus) db.elderStatus = loaded.elderStatus;
       if (loaded.elderTimeline) db.elderTimeline = loaded.elderTimeline;
       if (loaded.campusIssues) db.campusIssues = loaded.campusIssues;
+      if (loaded.ambulanceClear) db.ambulanceClear = loaded.ambulanceClear;
       console.log('[VisionGuard DB] Successfully loaded persistent state from disk.');
       return;
     }
@@ -1506,6 +1786,191 @@ app.post('/api/campuspulse/issue/:id/status', (req, res) => {
 });
 
 // ==========================================
+// AMBULANCECLEAR INTELLIGENCE ENDPOINTS
+// ==========================================
+app.get('/api/ambulanceclear/state', (req, res) => {
+  res.json(db.ambulanceClear);
+});
+
+app.post('/api/ambulanceclear/simulate-action', (req, res) => {
+  const { action } = req.body;
+  const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+  if (action === 'block_traffic') {
+    db.ambulanceClear.ambulanceStatus = 'CRITICAL_BLOCKED';
+    db.ambulanceClear.clearanceScore = 32;
+    db.ambulanceClear.trafficDensity = 'SEVERE';
+    db.ambulanceClear.blockedVehiclesCount = 3;
+    db.ambulanceClear.estimatedDelaySec = 42;
+    db.ambulanceClear.ambulanceSpeedKmh = 0;
+    db.ambulanceClear.ambulanceMovement = 'Stationary / Trapped';
+    db.ambulanceClear.availableLaneSpaceMeters = 1.1;
+    db.ambulanceClear.roadOccupancyPercent = 94;
+    db.ambulanceClear.breakdownScores = {
+      roadClearance: 12,
+      blockingPenalty: -45,
+      trafficDensityFactor: -25,
+      ambulanceMovementScore: 0,
+      availableLaneSpaceScore: 6,
+    };
+    db.ambulanceClear.lanes[1].isPathBlocked = true;
+    db.ambulanceClear.lanes[1].occupancyPercent = 96;
+    db.ambulanceClear.lanes[1].yieldingState = 'Blocked';
+
+    // Mark 3 vehicles blocking
+    db.ambulanceClear.vehicles.forEach((v) => {
+      if (v.id.startsWith('veh-car')) {
+        v.status = 'blocking';
+        v.color = '#ef4444';
+      }
+    });
+
+    const newTimelineItem = {
+      id: 'tl-' + Date.now(),
+      timestamp: now,
+      event: 'Clearance score: 32 — CRITICAL',
+      detail: '3 vehicles detected directly in emergency path. Chokepoint completely obstructed.',
+      severity: 'critical',
+      clearanceScore: 32,
+      blockedCount: 3,
+    };
+    db.ambulanceClear.timeline.unshift(newTimelineItem);
+
+    // Add high-priority alert
+    const newAlert = {
+      id: 'alt-' + Date.now(),
+      module: 'ambulanceclear',
+      eventType: 'Emergency Route Blockage',
+      title: 'Ambulance Route Obstructed (3 Vehicles)',
+      severity: 'critical',
+      confidence: 97,
+      timestamp: now,
+      location: db.ambulanceClear.activeCamera,
+      status: 'new',
+      assignedUser: 'Traffic Command Center',
+    };
+    db.alerts.unshift(newAlert);
+    db.stats.activeAlerts += 1;
+    db.stats.highRiskEvents += 1;
+  } else if (action === 'partial_clear') {
+    db.ambulanceClear.ambulanceStatus = 'ACTIVE';
+    db.ambulanceClear.clearanceScore = 64;
+    db.ambulanceClear.trafficDensity = 'HIGH';
+    db.ambulanceClear.blockedVehiclesCount = 2;
+    db.ambulanceClear.estimatedDelaySec = 18;
+    db.ambulanceClear.ambulanceSpeedKmh = 18;
+    db.ambulanceClear.ambulanceMovement = 'Crawling (<10 km/h)';
+    db.ambulanceClear.availableLaneSpaceMeters = 2.4;
+    db.ambulanceClear.roadOccupancyPercent = 78;
+    db.ambulanceClear.breakdownScores = {
+      roadClearance: 35,
+      blockingPenalty: -24,
+      trafficDensityFactor: -12,
+      ambulanceMovementScore: 15,
+      availableLaneSpaceScore: 18,
+    };
+    db.ambulanceClear.lanes[1].isPathBlocked = true;
+    db.ambulanceClear.lanes[1].occupancyPercent = 76;
+    db.ambulanceClear.lanes[1].yieldingState = 'Yielding Left';
+
+    const newTimelineItem = {
+      id: 'tl-' + Date.now(),
+      timestamp: now,
+      event: 'Lane partially cleared',
+      detail: 'Lead vehicle CAR-104 initiated lateral evasion. Emergency corridor width at 2.4m.',
+      severity: 'medium',
+      clearanceScore: 64,
+      blockedCount: 2,
+    };
+    db.ambulanceClear.timeline.unshift(newTimelineItem);
+  } else if (action === 'full_clear') {
+    db.ambulanceClear.ambulanceStatus = 'CLEARED';
+    db.ambulanceClear.clearanceScore = 88;
+    db.ambulanceClear.trafficDensity = 'MODERATE';
+    db.ambulanceClear.blockedVehiclesCount = 0;
+    db.ambulanceClear.estimatedDelaySec = 2;
+    db.ambulanceClear.ambulanceSpeedKmh = 52;
+    db.ambulanceClear.ambulanceMovement = 'Cruising (45 km/h)';
+    db.ambulanceClear.availableLaneSpaceMeters = 4.2;
+    db.ambulanceClear.roadOccupancyPercent = 42;
+    db.ambulanceClear.breakdownScores = {
+      roadClearance: 88,
+      blockingPenalty: 0,
+      trafficDensityFactor: 0,
+      ambulanceMovementScore: 45,
+      availableLaneSpaceScore: 30,
+    };
+    db.ambulanceClear.lanes[1].isPathBlocked = false;
+    db.ambulanceClear.lanes[1].occupancyPercent = 22;
+    db.ambulanceClear.lanes[1].yieldingState = 'Clear Corridor';
+
+    db.ambulanceClear.vehicles.forEach((v) => {
+      if (v.id.startsWith('veh-car')) {
+        v.status = 'yielding';
+        v.color = '#22c55e';
+      }
+    });
+
+    const newTimelineItem = {
+      id: 'tl-' + Date.now(),
+      timestamp: now,
+      event: 'Clearance score: 88 — CLEAR',
+      detail: 'Green corridor established. All vehicles successfully vacated central emergency path.',
+      severity: 'safe',
+      clearanceScore: 88,
+      blockedCount: 0,
+    };
+    db.ambulanceClear.timeline.unshift(newTimelineItem);
+  } else if (action === 'toggle_preemption') {
+    db.ambulanceClear.preemptionActive = !db.ambulanceClear.preemptionActive;
+    if (db.ambulanceClear.preemptionActive) {
+      db.ambulanceClear.clearanceScore = Math.min(95, db.ambulanceClear.clearanceScore + 18);
+      const newTimelineItem = {
+        id: 'tl-' + Date.now(),
+        timestamp: now,
+        event: 'Signal Preemption Active',
+        detail: 'Green light corridor dispatched for Junction 7 & 8 arterial intersections.',
+        severity: 'safe',
+        clearanceScore: db.ambulanceClear.clearanceScore,
+        blockedCount: Math.max(0, db.ambulanceClear.blockedVehiclesCount - 1),
+      };
+      db.ambulanceClear.timeline.unshift(newTimelineItem);
+    }
+  } else if (action === 'reset') {
+    db.ambulanceClear.ambulanceStatus = 'ACTIVE';
+    db.ambulanceClear.clearanceScore = 64;
+    db.ambulanceClear.trafficDensity = 'HIGH';
+    db.ambulanceClear.blockedVehiclesCount = 3;
+    db.ambulanceClear.estimatedDelaySec = 18;
+    db.ambulanceClear.ambulanceSpeedKmh = 14;
+    db.ambulanceClear.ambulanceMovement = 'Crawling (<10 km/h)';
+    db.ambulanceClear.preemptionActive = false;
+  }
+
+  saveDB();
+  res.json(db.ambulanceClear);
+});
+
+app.post('/api/ambulanceclear/preemption', (req, res) => {
+  const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  db.ambulanceClear.preemptionActive = true;
+  db.ambulanceClear.clearanceScore = Math.min(95, db.ambulanceClear.clearanceScore + 20);
+  db.ambulanceClear.estimatedDelaySec = Math.max(2, db.ambulanceClear.estimatedDelaySec - 12);
+  const newTimelineItem = {
+    id: 'tl-' + Date.now(),
+    timestamp: now,
+    event: 'Traffic Signal Preemption Dispatched',
+    detail: 'Green wave preemptive phasing triggered for next 3 downstream intersections.',
+    severity: 'safe',
+    clearanceScore: db.ambulanceClear.clearanceScore,
+    blockedCount: Math.max(0, db.ambulanceClear.blockedVehiclesCount - 1),
+  };
+  db.ambulanceClear.timeline.unshift(newTimelineItem);
+  saveDB();
+  res.json(db.ambulanceClear);
+});
+
+// ==========================================
 // CORE COMPUTER VISION ANALYSIS ENDPOINT
 // ==========================================
 app.post('/api/vision/analyze', async (req, res) => {
@@ -1667,6 +2132,16 @@ Respond ONLY with valid JSON in this schema:
           },
         ];
         analysisNotes = 'Identified structural defect signature.';
+      } else if (mode === 'ambulanceclear' || mode === 'ambulance') {
+        objectsDetected = [
+          { id: `det-${Date.now()}-1`, label: 'Ambulance (Emergency)', confidence: 99, ymin: 710, xmin: 390, ymax: 950, xmax: 610, trackId: 'AMB-911', color: '#ef4444' },
+          { id: `det-${Date.now()}-2`, label: 'Car (Path Blocker)', confidence: 95, ymin: 500, xmin: 410, ymax: 660, xmax: 570, trackId: 'CAR-104', color: '#ef4444' },
+          { id: `det-${Date.now()}-3`, label: 'SUV (Path Blocker)', confidence: 93, ymin: 350, xmin: 420, ymax: 480, xmax: 560, trackId: 'SUV-218', color: '#ef4444' },
+          { id: `det-${Date.now()}-4`, label: 'Bus (General Lane)', confidence: 94, ymin: 270, xmin: 160, ymax: 520, xmax: 330, trackId: 'BUS-08', color: '#a855f7' },
+          { id: `det-${Date.now()}-5`, label: 'Motorcycle', confidence: 88, ymin: 430, xmin: 690, ymax: 530, xmax: 760, trackId: 'MOTO-14', color: '#f59e0b' },
+          { id: `det-${Date.now()}-6`, label: 'Pedestrian', confidence: 91, ymin: 310, xmin: 840, ymax: 410, xmax: 890, trackId: 'PED-02', color: '#38bdf8' },
+        ];
+        analysisNotes = 'Emergency corridor analyzed: 3 vehicles in forward trajectory. Clearance score calculated at 64%.';
       } else {
         objectsDetected = [
           { id: `det-${Date.now()}-1`, label: 'Person', confidence: 96, ymin: 140, xmin: 180, ymax: 690, xmax: 380, trackId: 'Person #04', color: '#38bdf8' },
@@ -1857,6 +2332,14 @@ app.get('/api/demo/scenarios', (req, res) => {
       description: 'Emergency exit blocked detection triggering priority 96/100 administrator notification.',
       mode: 'campuspulse',
       thumbnail: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=600&q=80',
+    },
+    {
+      id: 'demo-8',
+      title: 'AmbulanceClear Route Intelligence',
+      module: 'ambulanceclear',
+      description: 'Analyze traffic-camera footage to evaluate emergency route clearance, detect 3 blocking vehicles in emergency path, and calculate clearance score.',
+      mode: 'ambulanceclear',
+      thumbnail: 'https://images.unsplash.com/photo-1587745416684-47953f16f02f?auto=format&fit=crop&w=600&q=80',
     },
   ]);
 });

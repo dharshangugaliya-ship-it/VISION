@@ -12,6 +12,7 @@ import {
   Settings,
   Sparkles,
   ShieldCheck,
+  Siren,
 } from 'lucide-react';
 import { UserRole } from '../types/vision';
 
@@ -38,6 +39,7 @@ export const Sidebar: React.FC<Props> = ({
     { id: 'elderguard', label: 'ElderGuard', icon: HeartHandshake, color: 'text-emerald-400' },
     { id: 'bunkwatch', label: 'BunkWatch', icon: GraduationCap, color: 'text-rose-400' },
     { id: 'campuspulse', label: 'CampusPulse', icon: Building2, color: 'text-purple-400' },
+    { id: 'ambulanceclear', label: 'AmbulanceClear', icon: Siren, color: 'text-rose-400', badge: 'NEW' },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
     { id: 'alerts', label: 'Alerts', icon: Bell, alertCount: activeAlertCount },
     { id: 'settings', label: 'Settings', icon: Settings },

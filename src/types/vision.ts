@@ -1,6 +1,73 @@
-export type ModuleType = 'core' | 'elderguard' | 'bunkwatch' | 'campuspulse';
+export type ModuleType = 'core' | 'elderguard' | 'bunkwatch' | 'campuspulse' | 'ambulanceclear';
 export type SeverityLevel = 'low' | 'medium' | 'high' | 'critical' | 'safe';
 export type UserRole = 'admin' | 'ca' | 'operator';
+
+export type AmbulanceStatus = 'ACTIVE' | 'IDLE' | 'CRITICAL_BLOCKED' | 'CLEARED' | 'EN_ROUTE';
+export type TrafficDensity = 'LOW' | 'MODERATE' | 'HIGH' | 'SEVERE';
+
+export interface AmbulanceVehicleDetection {
+  id: string;
+  type: 'ambulance' | 'car' | 'bus' | 'motorcycle' | 'pedestrian';
+  label: string;
+  confidence: number;
+  lane: number; // 1 (Left), 2 (Center / Emergency Corridor), 3 (Right)
+  distanceMeters: number; // ahead of ambulance
+  speedKmh: number;
+  status: 'blocking' | 'yielding' | 'clear' | 'stationary' | 'cutting_in';
+  ymin: number;
+  xmin: number;
+  ymax: number;
+  xmax: number;
+  trackId: string;
+  color: string;
+}
+
+export interface LaneStatus {
+  id: number;
+  name: string;
+  type: 'general' | 'emergency_primary' | 'shoulder';
+  occupancyPercent: number;
+  vehicleCount: number;
+  isPathBlocked: boolean;
+  yieldingState: 'Yielding Left' | 'Blocked' | 'Clear Corridor' | 'Yielding Right';
+}
+
+export interface AmbulanceClearTimelineItem {
+  id: string;
+  timestamp: string;
+  event: string;
+  detail: string;
+  severity: SeverityLevel;
+  clearanceScore: number;
+  blockedCount: number;
+}
+
+export interface AmbulanceClearState {
+  ambulanceStatus: AmbulanceStatus;
+  clearanceScore: number; // 0 - 100
+  trafficDensity: TrafficDensity;
+  blockedVehiclesCount: number;
+  estimatedDelaySec: number;
+  ambulanceSpeedKmh: number;
+  activeCamera: string;
+  routeCorridorName: string;
+  destinationHospital: string;
+  etaMinutes: number;
+  availableLaneSpaceMeters: number;
+  roadOccupancyPercent: number;
+  ambulanceMovement: 'Stationary / Trapped' | 'Crawling (<10 km/h)' | 'Slowing Down' | 'Cruising (45 km/h)';
+  breakdownScores: {
+    roadClearance: number;
+    blockingPenalty: number;
+    trafficDensityFactor: number;
+    ambulanceMovementScore: number;
+    availableLaneSpaceScore: number;
+  };
+  lanes: LaneStatus[];
+  vehicles: AmbulanceVehicleDetection[];
+  timeline: AmbulanceClearTimelineItem[];
+  preemptionActive: boolean;
+}
 
 export interface BoundingBox {
   id: string;
