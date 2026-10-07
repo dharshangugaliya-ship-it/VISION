@@ -77,6 +77,20 @@ interface DBState {
     assignedCaName: string;
     registeredPhoto: string;
     status: string;
+    attendanceStatus?: string;
+    attendanceTime?: string;
+    exitTime?: string;
+    verificationCount?: number;
+    lastConfidence?: number;
+    matchedTrackId?: string;
+    isLate?: boolean;
+    lateMinutes?: number;
+    isEarlyExit?: boolean;
+    earlyExitMinutes?: number;
+    timeSpentMinutes?: number;
+    bunkRisk?: any;
+    anomalies?: any[];
+    history?: any[];
   }>;
   bunkSession: {
     id: string;
@@ -87,7 +101,11 @@ interface DBState {
     caName: string;
     camera: string;
     startTime: string;
-    status: 'active' | 'idle';
+    endTime?: string;
+    expectedDurationMinutes?: number;
+    gracePeriodMinutes?: number;
+    room?: string;
+    status: 'active' | 'idle' | 'completed';
     durationSec: number;
     identifiedCount: number;
     matchCount: number;
@@ -346,6 +364,103 @@ const db: DBState = {
       assignedCaName: 'Dr. Priya',
       registeredPhoto: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80',
       status: 'flagged',
+      attendanceStatus: 'not_detected',
+      verificationCount: 0,
+      lastConfidence: 0,
+      timeSpentMinutes: 0,
+      bunkRisk: {
+        score: 62,
+        level: 'moderate',
+        factors: [
+          'Attendance rate 79% is near the 75% institutional threshold (+12)',
+          '5 missed lectures logged across current semester (+25)',
+          '2 early departures logged before class completion (+20)',
+          '3 late arrivals past 10-minute grace period (+15)',
+        ],
+        attendanceRate: 79,
+        missedClassesCount: 5,
+        lateEntriesCount: 3,
+        earlyExitsCount: 2,
+        totalClassesHeld: 24,
+        needsFacultyReview: true,
+      },
+      anomalies: [
+        {
+          id: 'anom-ak-1',
+          type: 'rapid_exit',
+          title: 'Rapid Corridor Departure',
+          description: 'Departed corridor 14 minutes after Period 3 started during Computer Networks.',
+          severity: 'medium',
+          detectedTime: 'Oct 05, 09:14 AM',
+        },
+        {
+          id: 'anom-ak-2',
+          type: 'pattern_deviation',
+          title: 'Recurring Period 1 Delay',
+          description: 'Arrived after 10-minute grace period on 3 consecutive Monday morning lectures.',
+          severity: 'low',
+          detectedTime: 'Sep 29, 09:12 AM',
+        },
+      ],
+      history: [
+        {
+          id: 'rec-ak-1',
+          date: 'Oct 05, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '09:14 AM',
+          exitTime: '09:28 AM',
+          timeSpentMinutes: 14,
+          expectedDurationMinutes: 50,
+          status: 'early_exit',
+          earlyExitMinutes: 22,
+        },
+        {
+          id: 'rec-ak-2',
+          date: 'Oct 03, 2026',
+          subject: 'Database Management Systems',
+          className: 'CSE - A',
+          entryTime: '11:15 AM',
+          exitTime: '12:00 PM',
+          timeSpentMinutes: 45,
+          expectedDurationMinutes: 50,
+          status: 'late_entry',
+          lateMinutes: 15,
+        },
+        {
+          id: 'rec-ak-3',
+          date: 'Oct 02, 2026',
+          subject: 'Design & Analysis of Algorithms',
+          className: 'CSE - A',
+          entryTime: '02:02 PM',
+          exitTime: '02:50 PM',
+          timeSpentMinutes: 48,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+        {
+          id: 'rec-ak-4',
+          date: 'Sep 30, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '—',
+          exitTime: '—',
+          timeSpentMinutes: 0,
+          expectedDurationMinutes: 50,
+          status: 'missed',
+        },
+        {
+          id: 'rec-ak-5',
+          date: 'Sep 28, 2026',
+          subject: 'Operating Systems',
+          className: 'CSE - A',
+          entryTime: '10:04 AM',
+          exitTime: '10:50 AM',
+          timeSpentMinutes: 46,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+      ],
     },
     {
       id: 'std-118',
@@ -358,6 +473,71 @@ const db: DBState = {
       assignedCaName: 'Dr. Priya',
       registeredPhoto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
       status: 'enrolled',
+      attendanceStatus: 'not_detected',
+      verificationCount: 0,
+      lastConfidence: 0,
+      timeSpentMinutes: 0,
+      bunkRisk: {
+        score: 8,
+        level: 'low',
+        factors: [
+          'Exemplary on-time attendance pattern (96% overall rate)',
+          '0 early departures or grace period violations recorded',
+        ],
+        attendanceRate: 96,
+        missedClassesCount: 1,
+        lateEntriesCount: 0,
+        earlyExitsCount: 0,
+        totalClassesHeld: 24,
+        needsFacultyReview: false,
+      },
+      anomalies: [],
+      history: [
+        {
+          id: 'rec-ps-1',
+          date: 'Oct 05, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '08:58 AM',
+          exitTime: '09:50 AM',
+          timeSpentMinutes: 50,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+        {
+          id: 'rec-ps-2',
+          date: 'Oct 03, 2026',
+          subject: 'Database Management Systems',
+          className: 'CSE - A',
+          entryTime: '11:00 AM',
+          exitTime: '11:50 AM',
+          timeSpentMinutes: 50,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+        {
+          id: 'rec-ps-3',
+          date: 'Oct 02, 2026',
+          subject: 'Design & Analysis of Algorithms',
+          className: 'CSE - A',
+          entryTime: '02:00 PM',
+          exitTime: '02:50 PM',
+          timeSpentMinutes: 50,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+        {
+          id: 'rec-ps-4',
+          date: 'Sep 30, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '09:01 AM',
+          exitTime: '09:50 AM',
+          timeSpentMinutes: 49,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+      ],
     },
     {
       id: 'std-126',
@@ -370,6 +550,83 @@ const db: DBState = {
       assignedCaName: 'Dr. Priya',
       registeredPhoto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80',
       status: 'enrolled',
+      attendanceStatus: 'not_detected',
+      verificationCount: 0,
+      lastConfidence: 0,
+      timeSpentMinutes: 0,
+      bunkRisk: {
+        score: 42,
+        level: 'moderate',
+        factors: [
+          '4 late arrivals logged past 10-minute grace period (+15)',
+          '3 missed lectures recorded (+15)',
+          '1 early departure recorded (+10)',
+        ],
+        attendanceRate: 87,
+        missedClassesCount: 3,
+        lateEntriesCount: 4,
+        earlyExitsCount: 1,
+        totalClassesHeld: 24,
+        needsFacultyReview: false,
+      },
+      anomalies: [
+        {
+          id: 'anom-rm-1',
+          type: 'borderline_threshold',
+          title: 'Marginal Verification Match',
+          description: 'Facial detection confidence hovered at 76% in lower lighting conditions on Oct 03.',
+          severity: 'low',
+          detectedTime: 'Oct 03, 11:18 AM',
+        },
+      ],
+      history: [
+        {
+          id: 'rec-rm-1',
+          date: 'Oct 05, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '09:12 AM',
+          exitTime: '09:50 AM',
+          timeSpentMinutes: 38,
+          expectedDurationMinutes: 50,
+          status: 'late_entry',
+          lateMinutes: 12,
+        },
+        {
+          id: 'rec-rm-2',
+          date: 'Oct 03, 2026',
+          subject: 'Database Management Systems',
+          className: 'CSE - A',
+          entryTime: '11:02 AM',
+          exitTime: '11:50 AM',
+          timeSpentMinutes: 48,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+        {
+          id: 'rec-rm-3',
+          date: 'Oct 02, 2026',
+          subject: 'Design & Analysis of Algorithms',
+          className: 'CSE - A',
+          entryTime: '—',
+          exitTime: '—',
+          timeSpentMinutes: 0,
+          expectedDurationMinutes: 50,
+          status: 'missed',
+        },
+        {
+          id: 'rec-rm-4',
+          date: 'Sep 30, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '09:16 AM',
+          exitTime: '09:50 AM',
+          timeSpentMinutes: 34,
+          expectedDurationMinutes: 50,
+          status: 'late_entry',
+          lateMinutes: 16,
+        },
+      ],
     },
     {
       id: 'std-142',
@@ -382,6 +639,49 @@ const db: DBState = {
       assignedCaName: 'Prof. Sharma',
       registeredPhoto: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80',
       status: 'enrolled',
+      attendanceStatus: 'not_detected',
+      verificationCount: 0,
+      lastConfidence: 0,
+      timeSpentMinutes: 0,
+      bunkRisk: {
+        score: 18,
+        level: 'low',
+        factors: [
+          'Consistent attendance rate of 92%',
+          'Single isolated late entry this month (+6)',
+        ],
+        attendanceRate: 92,
+        missedClassesCount: 2,
+        lateEntriesCount: 1,
+        earlyExitsCount: 0,
+        totalClassesHeld: 24,
+        needsFacultyReview: false,
+      },
+      anomalies: [],
+      history: [
+        {
+          id: 'rec-sr-1',
+          date: 'Oct 05, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - B',
+          entryTime: '09:00 AM',
+          exitTime: '09:50 AM',
+          timeSpentMinutes: 50,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+        {
+          id: 'rec-sr-2',
+          date: 'Oct 03, 2026',
+          subject: 'Database Management Systems',
+          className: 'CSE - B',
+          entryTime: '11:00 AM',
+          exitTime: '11:50 AM',
+          timeSpentMinutes: 50,
+          expectedDurationMinutes: 50,
+          status: 'on_time',
+        },
+      ],
     },
     {
       id: 'std-155',
@@ -393,7 +693,114 @@ const db: DBState = {
       assignedCaId: 'ca-priya',
       assignedCaName: 'Dr. Priya',
       registeredPhoto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80',
-      status: 'enrolled',
+      status: 'flagged',
+      attendanceStatus: 'not_detected',
+      verificationCount: 0,
+      lastConfidence: 0,
+      timeSpentMinutes: 0,
+      bunkRisk: {
+        score: 84,
+        level: 'high',
+        factors: [
+          'Attendance rate 66% is critically below the 75% institutional requirement (+45)',
+          '8 missed lectures accumulated across semester (+25)',
+          '3 unexcused early departures before period completion (+20)',
+          '4 late arrivals past 10-minute grace period (+15)',
+          '3 active attendance anomalies awaiting faculty review (+15)',
+        ],
+        attendanceRate: 66,
+        missedClassesCount: 8,
+        lateEntriesCount: 4,
+        earlyExitsCount: 3,
+        totalClassesHeld: 24,
+        needsFacultyReview: true,
+      },
+      anomalies: [
+        {
+          id: 'anom-vk-1',
+          type: 'rapid_exit',
+          title: 'Stairwell Early Exit Detected',
+          description: 'Crossed stairwell boundary 22 minutes prior to lecture completion.',
+          severity: 'high',
+          detectedTime: 'Oct 04, 02:28 PM',
+        },
+        {
+          id: 'anom-vk-2',
+          type: 'pattern_deviation',
+          title: 'Critical Sub-75% Attendance Trend',
+          description: 'Cumulative attendance rate dropped to 66% across core CSE subjects.',
+          severity: 'high',
+          detectedTime: 'Oct 02, 05:00 PM',
+        },
+        {
+          id: 'anom-vk-3',
+          type: 'unusual_dwell',
+          title: 'Corridor Transit without Classroom Entry',
+          description: 'Briefly tracked in Block B corridor during Period 2 without attending scheduled lecture.',
+          severity: 'medium',
+          detectedTime: 'Sep 29, 10:15 AM',
+        },
+      ],
+      history: [
+        {
+          id: 'rec-vk-1',
+          date: 'Oct 04, 2026',
+          subject: 'Operating Systems',
+          className: 'CSE - A',
+          entryTime: '02:00 PM',
+          exitTime: '02:28 PM',
+          timeSpentMinutes: 28,
+          expectedDurationMinutes: 50,
+          status: 'early_exit',
+          earlyExitMinutes: 22,
+        },
+        {
+          id: 'rec-vk-2',
+          date: 'Oct 03, 2026',
+          subject: 'Database Management Systems',
+          className: 'CSE - A',
+          entryTime: '—',
+          exitTime: '—',
+          timeSpentMinutes: 0,
+          expectedDurationMinutes: 50,
+          status: 'missed',
+        },
+        {
+          id: 'rec-vk-3',
+          date: 'Oct 02, 2026',
+          subject: 'Design & Analysis of Algorithms',
+          className: 'CSE - A',
+          entryTime: '02:18 PM',
+          exitTime: '02:50 PM',
+          timeSpentMinutes: 32,
+          expectedDurationMinutes: 50,
+          status: 'late_entry',
+          lateMinutes: 18,
+        },
+        {
+          id: 'rec-vk-4',
+          date: 'Sep 30, 2026',
+          subject: 'Computer Networks',
+          className: 'CSE - A',
+          entryTime: '—',
+          exitTime: '—',
+          timeSpentMinutes: 0,
+          expectedDurationMinutes: 50,
+          status: 'missed',
+        },
+        {
+          id: 'rec-vk-5',
+          date: 'Sep 29, 2026',
+          subject: 'Web Technologies',
+          className: 'CSE - A',
+          entryTime: '10:00 AM',
+          exitTime: '10:25 AM',
+          timeSpentMinutes: 25,
+          expectedDurationMinutes: 50,
+          status: 'early_exit',
+          earlyExitMinutes: 25,
+        },
+      ],
     },
   ],
   bunkSession: {
@@ -580,7 +987,20 @@ function loadDB() {
       if (loaded.stats) db.stats = loaded.stats;
       if (loaded.events) db.events = loaded.events;
       if (loaded.alerts) db.alerts = loaded.alerts;
-      if (loaded.students) db.students = loaded.students;
+      if (loaded.students) {
+        // Ensure student records preserve or receive complete attendance intelligence data
+        db.students = db.students.map((baseStd) => {
+          const diskStd = loaded.students.find((s: any) => s.id === baseStd.id);
+          if (!diskStd) return baseStd;
+          return {
+            ...baseStd,
+            ...diskStd,
+            bunkRisk: diskStd.bunkRisk || baseStd.bunkRisk,
+            anomalies: diskStd.anomalies || baseStd.anomalies,
+            history: diskStd.history || baseStd.history,
+          };
+        });
+      }
       if (loaded.bunkSession) db.bunkSession = loaded.bunkSession;
       if (loaded.bunkMatches) db.bunkMatches = loaded.bunkMatches;
       if (loaded.elderStatus) db.elderStatus = loaded.elderStatus;
@@ -801,7 +1221,130 @@ app.post('/api/bunkwatch/session/start', (req, res) => {
 
 app.post('/api/bunkwatch/session/stop', (req, res) => {
   db.bunkSession.status = 'idle';
+  saveDB();
   res.json({ success: true, session: db.bunkSession });
+});
+
+app.post('/api/bunkwatch/session/create', (req, res) => {
+  const { className, subject, room, startTime, endTime, expectedDurationMinutes, gracePeriodMinutes, period } = req.body;
+  db.bunkSession = {
+    id: 'bunk-sess-' + Date.now(),
+    className: className || 'CSE - A',
+    subject: subject || 'Computer Networks',
+    period: period || 3,
+    caId: 'ca-priya',
+    caName: 'Dr. Priya',
+    camera: room ? `Room ${room} Cam 01` : 'Block B Cam 04',
+    startTime: startTime || '09:00 AM',
+    endTime: endTime || '09:50 AM',
+    expectedDurationMinutes: expectedDurationMinutes || 50,
+    gracePeriodMinutes: gracePeriodMinutes || 10,
+    status: 'active',
+    durationSec: 0,
+    identifiedCount: 0,
+    matchCount: 0,
+    unmatchedCount: 0,
+  };
+  saveDB();
+  res.json({ success: true, session: db.bunkSession });
+});
+
+app.get('/api/bunkwatch/students', (req, res) => {
+  res.json({ success: true, students: db.students });
+});
+
+app.post('/api/bunkwatch/student/:id/attendance', (req, res) => {
+  const { id } = req.params;
+  const { attendanceStatus, attendanceTime, exitTime, isLate, lateMinutes, isEarlyExit, earlyExitMinutes, timeSpentMinutes, matchedTrackId } = req.body;
+  const student = db.students.find((s) => s.id === id);
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+
+  if (attendanceStatus !== undefined) student.attendanceStatus = attendanceStatus;
+  if (attendanceTime !== undefined) student.attendanceTime = attendanceTime;
+  if (exitTime !== undefined) student.exitTime = exitTime;
+  if (isLate !== undefined) student.isLate = isLate;
+  if (lateMinutes !== undefined) student.lateMinutes = lateMinutes;
+  if (isEarlyExit !== undefined) student.isEarlyExit = isEarlyExit;
+  if (earlyExitMinutes !== undefined) student.earlyExitMinutes = earlyExitMinutes;
+  if (timeSpentMinutes !== undefined) student.timeSpentMinutes = timeSpentMinutes;
+  if (matchedTrackId !== undefined) student.matchedTrackId = matchedTrackId;
+
+  saveDB();
+  res.json({ success: true, student });
+});
+
+app.post('/api/bunkwatch/student/:id/action', (req, res) => {
+  const { id } = req.params;
+  const { action, anomalyId } = req.body;
+  const student = db.students.find((s) => s.id === id);
+  if (!student) return res.status(404).json({ error: 'Student not found' });
+
+  if (action === 'mark_reviewed') {
+    if (student.bunkRisk) student.bunkRisk.needsFacultyReview = false;
+    student.status = 'enrolled';
+  } else if (action === 'resolve_anomaly' && anomalyId) {
+    student.anomalies = (student.anomalies || []).filter((a: any) => a.id !== anomalyId);
+    if (student.bunkRisk && student.anomalies.length === 0 && student.bunkRisk.score < 70) {
+      student.bunkRisk.needsFacultyReview = false;
+    }
+  } else if (action === 'excuse_absence') {
+    student.status = 'excused';
+    if (student.bunkRisk) {
+      student.bunkRisk.needsFacultyReview = false;
+      student.bunkRisk.factors.push('Absence formally excused by faculty advisor');
+    }
+  }
+
+  saveDB();
+  res.json({ success: true, student });
+});
+
+app.post('/api/bunkwatch/student/register', (req, res) => {
+  const { name, registrationNumber, department, year, section, registeredPhoto } = req.body;
+  const newStudent = {
+    id: 'std-' + Date.now(),
+    name: name || 'Student',
+    registrationNumber: registrationNumber || `23CSE${Math.floor(Math.random() * 899 + 100)}`,
+    department: department || 'Computer Science & Engineering',
+    year: year || 'II',
+    section: section || 'A',
+    assignedCaId: 'ca-priya',
+    assignedCaName: 'Dr. Priya',
+    registeredPhoto: registeredPhoto || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80',
+    status: 'enrolled',
+    attendanceStatus: 'not_detected',
+    verificationCount: 0,
+    lastConfidence: 0,
+    timeSpentMinutes: 0,
+    bunkRisk: {
+      score: 15,
+      level: 'low',
+      factors: ['Newly enrolled student record', 'Baseline attendance history initialized'],
+      attendanceRate: 100,
+      missedClassesCount: 0,
+      lateEntriesCount: 0,
+      earlyExitsCount: 0,
+      totalClassesHeld: 24,
+      needsFacultyReview: false,
+    },
+    anomalies: [],
+    history: [
+      {
+        id: 'rec-init-' + Date.now(),
+        date: 'Oct 05, 2026',
+        subject: 'Computer Networks',
+        className: `${year || 'II'}-${section || 'A'}`,
+        entryTime: '09:00 AM',
+        exitTime: '09:50 AM',
+        timeSpentMinutes: 50,
+        expectedDurationMinutes: 50,
+        status: 'on_time',
+      },
+    ],
+  };
+  db.students.unshift(newStudent);
+  saveDB();
+  res.status(201).json({ success: true, student: newStudent });
 });
 
 app.post('/api/bunkwatch/scan-frame', (req, res) => {

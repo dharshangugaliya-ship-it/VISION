@@ -79,6 +79,85 @@ export const api = {
     return res.json();
   },
 
+  async createBunkSession(config: {
+    className: string;
+    subject: string;
+    room?: string;
+    period?: number;
+    startTime?: string;
+    endTime?: string;
+    expectedDurationMinutes?: number;
+    gracePeriodMinutes?: number;
+  }): Promise<{ success: boolean; session: BunkSession }> {
+    const res = await fetch('/api/bunkwatch/session/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(config),
+    });
+    if (!res.ok) throw new Error('Failed to create bunk session');
+    return res.json();
+  },
+
+  async getBunkStudents(): Promise<{ success: boolean; students: StudentProfile[] }> {
+    const res = await fetch('/api/bunkwatch/students');
+    if (!res.ok) throw new Error('Failed to fetch students');
+    return res.json();
+  },
+
+  async updateStudentAttendance(
+    studentId: string,
+    data: {
+      attendanceStatus?: 'present' | 'not_detected';
+      attendanceTime?: string;
+      exitTime?: string;
+      isLate?: boolean;
+      lateMinutes?: number;
+      isEarlyExit?: boolean;
+      earlyExitMinutes?: number;
+      timeSpentMinutes?: number;
+      matchedTrackId?: string;
+    }
+  ): Promise<{ success: boolean; student: StudentProfile }> {
+    const res = await fetch(`/api/bunkwatch/student/${studentId}/attendance`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error('Failed to update student attendance');
+    return res.json();
+  },
+
+  async performStudentFacultyAction(
+    studentId: string,
+    action: 'mark_reviewed' | 'resolve_anomaly' | 'excuse_absence',
+    anomalyId?: string
+  ): Promise<{ success: boolean; student: StudentProfile }> {
+    const res = await fetch(`/api/bunkwatch/student/${studentId}/action`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action, anomalyId }),
+    });
+    if (!res.ok) throw new Error('Failed to perform faculty action');
+    return res.json();
+  },
+
+  async registerStudent(studentData: {
+    name: string;
+    registrationNumber: string;
+    department?: string;
+    year?: string;
+    section?: string;
+    registeredPhoto?: string;
+  }): Promise<{ success: boolean; student: StudentProfile }> {
+    const res = await fetch('/api/bunkwatch/student/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(studentData),
+    });
+    if (!res.ok) throw new Error('Failed to register student');
+    return res.json();
+  },
+
   async scanBunkFrame(frameBase64?: string): Promise<{
     matchFound: boolean;
     match: BunkMatchEvent;

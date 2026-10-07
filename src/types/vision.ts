@@ -45,6 +45,41 @@ export interface AlertItem {
   resolvedAt?: string;
 }
 
+export interface AttendanceSessionRecord {
+  id: string;
+  date: string;
+  subject: string;
+  className: string;
+  entryTime?: string;
+  exitTime?: string;
+  timeSpentMinutes: number;
+  expectedDurationMinutes: number;
+  status: 'on_time' | 'late_entry' | 'early_exit' | 'missed' | 'anomaly';
+  lateMinutes?: number;
+  earlyExitMinutes?: number;
+}
+
+export interface AttendanceAnomaly {
+  id: string;
+  type: 'rapid_exit' | 'borderline_threshold' | 'unusual_dwell' | 'pattern_deviation';
+  title: string;
+  description: string;
+  severity: 'low' | 'medium' | 'high';
+  detectedTime: string;
+}
+
+export interface BunkRiskAssessment {
+  score: number; // 0 to 100
+  level: 'low' | 'moderate' | 'high';
+  factors: string[];
+  attendanceRate: number; // percentage
+  missedClassesCount: number;
+  lateEntriesCount: number;
+  earlyExitsCount: number;
+  totalClassesHeld: number;
+  needsFacultyReview: boolean;
+}
+
 export interface StudentProfile {
   id: string;
   name: string;
@@ -56,6 +91,20 @@ export interface StudentProfile {
   assignedCaName: string;
   registeredPhoto: string;
   status: 'enrolled' | 'flagged' | 'excused';
+  attendanceStatus?: 'present' | 'not_detected';
+  attendanceTime?: string;
+  exitTime?: string;
+  timeSpentMinutes?: number;
+  isLate?: boolean;
+  lateMinutes?: number;
+  isEarlyExit?: boolean;
+  earlyExitMinutes?: number;
+  verificationCount?: number;
+  lastConfidence?: number;
+  matchedTrackId?: string;
+  bunkRisk?: BunkRiskAssessment;
+  anomalies?: AttendanceAnomaly[];
+  history?: AttendanceSessionRecord[];
 }
 
 export interface BunkSession {
@@ -63,12 +112,15 @@ export interface BunkSession {
   classId?: string;
   className: string;
   subject: string;
+  room?: string;
   period: number;
   caId: string;
   caName: string;
   camera: string;
   startTime: string;
   endTime?: string;
+  expectedDurationMinutes?: number;
+  gracePeriodMinutes?: number;
   status: 'active' | 'completed' | 'paused' | 'idle';
   durationSec?: number;
   identifiedCount: number;
