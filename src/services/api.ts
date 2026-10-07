@@ -146,12 +146,51 @@ export const api = {
     return res.json();
   },
 
+  async getEngineStatus(): Promise<{
+    geminiKeyConfigured: boolean;
+    geminiActive: boolean;
+    model: string;
+    pipelineVersion: string;
+    activeMode: string;
+    features: string[];
+  }> {
+    const res = await fetch('/api/engine-status');
+    if (!res.ok) throw new Error('Failed to fetch engine status');
+    return res.json();
+  },
+
+  async createAlert(alert: Partial<AlertItem>): Promise<{ success: boolean; alert: AlertItem }> {
+    const res = await fetch('/api/alerts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(alert),
+    });
+    if (!res.ok) throw new Error('Failed to create alert');
+    return res.json();
+  },
+
+  async createEvent(event: Partial<VisionEvent>): Promise<{ success: boolean; event: VisionEvent }> {
+    const res = await fetch('/api/events', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(event),
+    });
+    if (!res.ok) throw new Error('Failed to create event');
+    return res.json();
+  },
+
   async analyzeVision(params: {
     imageBase64?: string;
     mode?: string;
     moduleType?: string;
     cameraLabel?: string;
-  }): Promise<AnalysisSessionResult & { summary?: string }> {
+    clientMotionBoxes?: any[];
+  }): Promise<AnalysisSessionResult & {
+    summary?: string;
+    engine?: string;
+    geminiActive?: boolean;
+    geminiKeyConfigured?: boolean;
+  }> {
     const res = await fetch('/api/vision/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
