@@ -46,7 +46,7 @@ export const Sidebar: React.FC<Props> = ({
   ];
 
   return (
-    <aside className="w-64 bg-[#0a0f1d] border-r border-slate-800/80 flex flex-col h-screen shrink-0 select-none">
+    <aside className="w-64 bg-[#0a0f1d] border-r border-slate-800/80 flex flex-col h-full min-h-0 shrink-0 select-none">
       {/* Brand Logo Header */}
       <div className="p-5 border-b border-slate-800/60 flex items-center gap-3">
         <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
@@ -67,7 +67,7 @@ export const Sidebar: React.FC<Props> = ({
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 min-h-0 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;

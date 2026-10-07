@@ -3088,7 +3088,7 @@ export const BunkWatchView: React.FC<Props> = ({ onRefreshGlobalStats }) => {
       {/* MODAL 1: REGISTER STUDENT WITH REFERENCE FACE DATA */}
       {isRegisterModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="glass-panel max-w-md w-full rounded-2xl p-6 border border-cyan-500/40 shadow-2xl space-y-4">
+          <div className="glass-panel max-w-md w-full rounded-2xl p-6 border border-cyan-500/40 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <UserPlus className="w-5 h-5 text-cyan-400" />
@@ -3189,7 +3189,7 @@ export const BunkWatchView: React.FC<Props> = ({ onRefreshGlobalStats }) => {
       {/* MODAL 2: CONFIGURE CLASS SESSION */}
       {isSessionModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="glass-panel max-w-md w-full rounded-2xl p-6 border border-cyan-500/40 shadow-2xl space-y-4">
+          <div className="glass-panel max-w-md w-full rounded-2xl p-6 border border-cyan-500/40 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-cyan-400" />

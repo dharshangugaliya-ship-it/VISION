@@ -222,7 +222,7 @@ export const AlertsCenterView: React.FC<Props> = ({ onRefreshGlobalStats }) => {
       {/* Selected Alert Modal */}
       {selectedAlert && (
         <div className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0f172a] border border-slate-700 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
+          <div className="bg-[#0f172a] border border-slate-700 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative space-y-4 max-h-[92vh] overflow-y-auto">
             <button
               onClick={() => setSelectedAlert(null)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg"

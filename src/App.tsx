@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { Header } from './components/Header';
 import { LandingHeroView } from './views/LandingHeroView';
@@ -37,6 +37,14 @@ export default function App() {
   });
 
   const [events, setEvents] = useState<VisionEvent[]>([]);
+  const mainScrollRef = useRef<HTMLElement>(null);
+
+  // Auto-scroll to top whenever switching modules/tabs
+  useEffect(() => {
+    if (mainScrollRef.current) {
+      mainScrollRef.current.scrollTo({ top: 0, behavior: 'instant' });
+    }
+  }, [activeTab]);
 
   const refreshGlobalData = async () => {
     try {
@@ -74,7 +82,7 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-screen overflow-hidden bg-gradient-to-b from-[#0b101f] via-[#080d1a] to-[#050811]">
+      <div className="flex-1 min-h-0 flex flex-col h-full overflow-hidden bg-gradient-to-b from-[#0b101f] via-[#080d1a] to-[#050811]">
         {/* Top Header */}
         <Header
           activeTab={activeTab}
@@ -86,7 +94,10 @@ export default function App() {
         />
 
         {/* Viewport View Switcher */}
-        <main className="flex-1 overflow-y-auto px-4 sm:px-8 py-6">
+        <main
+          ref={mainScrollRef}
+          className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden px-4 sm:px-8 py-6 focus:outline-none"
+        >
           {activeTab === 'landing' && (
             <LandingHeroView
               onNavigate={(tab) => setActiveTab(tab)}

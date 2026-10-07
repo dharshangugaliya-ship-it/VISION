@@ -298,7 +298,7 @@ export const OverviewDashboard: React.FC<Props> = ({ stats, events, onNavigate }
       {/* Detailed Event Inspection Modal */}
       {selectedEvent && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0f172a] border border-cyan-500/30 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4">
+          <div className="bg-[#0f172a] border border-cyan-500/30 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4 max-h-[92vh] overflow-y-auto">
             <button
               onClick={() => setSelectedEvent(null)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors"
