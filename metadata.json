@@ -1,0 +1,8 @@
+{
+  "name": "VisionGuard",
+  "description": "Real-Time Computer-Vision Intelligence Platform that detects, tracks, understands and prioritizes real-world events.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
